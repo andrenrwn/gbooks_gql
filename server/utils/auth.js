@@ -1,31 +1,46 @@
 const jwt = require('jsonwebtoken');
+const { GraphQLError } = require('graphql');
 
 // set token secret and expiration date
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
-  // function for our authenticated routes
-  authMiddleware: function (req, res, next) {
-    // allows token to be sent via  req.query or headers
-    let token = req.query.token || req.headers.authorization;
+  // GraphQL auth error handler
+  AuthenticationError: new GraphQLError('Could not authenticate user.', {
+    extensions: {
+      code: 'UNAUTHENTICATED',
+    },
+  }),
 
-    // ["Bearer", "<tokenvalue>"]
-    if (req.headers.authorization) {
+  // JWT auth middleware is retrieved from each HTTP request
+  // JWT tokens (cookies) can be retrieved from:
+  // - a JSON token element in the HTTP request body,
+  // - a "token" query variable in the GET URI
+  // - the authorization Bearer header  ( HTTP auth is defined in https://datatracker.ietf.org/doc/html/rfc7235 )
+  authMiddleware: function (req, res, next) {
+    // allows token to be sent via req.body, req.query or HTTP authorization: header
+    let token;
+    if (req.hasOwnProperty('body') && req.body.hasOwnProperty('token')) {
+      token = req.body.token;
+    } else if (req.hasOwnProperty('query') && req.query.hasOwnProperty('token')) {
+      token = req.query.token;
+    } else if (req.hasOwnProperty('headers') && req.headers.hasOwnProperty('authorization')) {
+      // Take the left value after ["Bearer", "<tokenvalue>"]
       token = token.split(' ').pop().trim();
-    }
+    };
 
     if (!token) {
-      return res.status(400).json({ message: 'You have no token!' });
+      return req; // no token found in request, so just return (w/ default original req object)
     }
 
     // verify token and get user data out of it
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
+      req.user = data; // populate decoded jwt token data into req.user object for the next express call
     } catch {
-      console.log('Invalid token');
-      return res.status(400).json({ message: 'invalid token!' });
+      console.log('Invalid token failed JWT verify');
+      return res.status(401).json({ message: 'Invalid token failed JWT verify' });
     }
 
     // send to next endpoint

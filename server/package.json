@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "gbooks_server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,12 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^7.0.2"
+    "bcrypt": "latest",
+    "express": "latest",
+    "jsonwebtoken": "latest",
+    "mongoose": "latest",
+    "graphql": "latest",
+    "@apollo/server": "latest"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "latest"
   }
 }
