@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 
-// login API - will deprecate
-import { loginUser } from "../utils/API";
+// login API - (deprecated)
+// import { loginUser } from "../utils/API";
 
 // modified for GraphQL
 import Auth from "../utils/auth";
