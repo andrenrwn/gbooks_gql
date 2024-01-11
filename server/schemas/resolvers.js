@@ -8,11 +8,17 @@ const resolvers = {
       return await User.find({}).populate('savedBooks').exec();
     },
     user: async (parent, args) => {
-      return await User.findById(args.id);
+      if (args.hasOwnProperty('id')) {
+        return await User.findById(args.id);
+      } else if (args.hasOwnProperty('username')) {
+        return await User.findOne({ username: args.username });
+      };
     },
-    me: async (parent, context) => {
+    // This resolver gets the user ID from the token info supplied by the HTTP request, saved in "context" by the Auth middleware
+    me: async (parent, args, context) => {
+      console.log("resolver me lookup:", args, context.user);
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('savedBooks');
+        return User.findOne({ _id: context.user._id });
       }
       throw AuthenticationError('You need to be logged in!');
     },

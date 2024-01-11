@@ -18,7 +18,7 @@ module.exports = {
   // - a JSON token element in the HTTP request body,
   // - a "token" query variable in the GET URI
   // - the authorization Bearer header  ( HTTP auth is defined in https://datatracker.ietf.org/doc/html/rfc7235 )
-  authMiddleware: function (req, res, next) {
+  authMiddleware: function ({ req }) {
     // allows token to be sent via req.body, req.query or HTTP authorization: header
     let token;
     if (req.hasOwnProperty('body') && req.body.hasOwnProperty('token')) {
@@ -30,21 +30,24 @@ module.exports = {
       token = token.split(' ').pop().trim();
     };
 
+    console.log("authMiddleware token:", token);
+
     if (!token) {
-      return req; // no token found in request, so just return (w/ default original req object)
+      return req; // no token found in request, so just return the original req as context object for the next one after this middleware
     }
 
     // verify token and get user data out of it
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      console.log("authMiddleware data:", data);
       req.user = data; // populate decoded jwt token data into req.user object for the next express call
     } catch {
       console.log('Invalid token failed JWT verify');
-      return res.status(401).json({ message: 'Invalid token failed JWT verify' });
+      // return res.status(401).json({ message: 'Invalid token failed JWT verify' });
     }
 
-    // send to next endpoint
-    next();
+    // send data to next function after this middleware as third parameter (ie. 'context')
+    return req;
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };

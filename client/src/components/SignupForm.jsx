@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 
 // Old signup via API method - will deprecate
-import { createUser } from "../utils/API";
+// import { createUser } from "../utils/API";
 
 import Auth from "../utils/auth";
 
