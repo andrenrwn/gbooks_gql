@@ -19,52 +19,25 @@ export const QUERY_USER = gql`
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
-    }
-  }
-`;
-
-export const QUERY_ME = gql`
-  query me {
-    me {
-      _id
-      username
-      email
-      savedBooks {
-        _id
-        bookId
-        title
-        authors
-        description
-        image
-        link
-      }
-    }
-  }
-`;
+// Deprecated
+// export const QUERY_ME = gql`
+//   query me {
+//     me {
+//       _id
+//       username
+//       email
+//       savedBooks {
+//         _id
+//         bookId
+//         title
+//         authors
+//         description
+//         image
+//         link
+//       }
+//     }
+//   }
+// `;
 
 // Mutations
 
@@ -100,12 +73,33 @@ export const ADD_USER = gql`
 export const ADD_BOOK = gql`
   mutation addBook($bookId: String!, $title: String!, $authors: [String!], $description: String!, $image: String!, $link: String!) {
     addBook(bookId: $bookId, title: $title, authors: $authors, description: $description, image: $image, link: $link) {
+      _id
       bookId
       title
       authors
       description
       image
       link
+    }
+  }
+`;
+
+// Delete book mutation
+export const DEL_BOOK = gql`
+  mutation delBook($bookId: String!) {
+    delBook(bookId: $bookId) {
+      _id
+      username
+      email
+      savedBooks {
+        _id
+        bookId
+        title
+        authors
+        description
+        image
+        link
+      }
     }
   }
 `;

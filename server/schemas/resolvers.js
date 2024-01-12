@@ -71,6 +71,31 @@ const resolvers = {
       };
       throw AuthenticationError;
     },
+    delBook: async (parent, bookToDelete, context) => {
+      console.log("resolver deleteBook mutation:", bookToDelete, context.user);
+      if (context.user) {
+
+        let authorizedUser = await User.findById(context.user._id);
+        const foundIndex = authorizedUser.savedBooks.findIndex((elem) => {
+          return elem.bookId === bookToDelete.bookId;
+        });
+
+        console.log("============= DELETING BOOK =============", bookToDelete.bookId);
+
+        // If the book is found, delete it from the array and save
+        if (!(foundIndex === -1)) {
+          authorizedUser.savedBooks.splice(foundIndex, 1);
+          await authorizedUser.save();
+
+          console.log("============= USER W/ DELETED BOOK =============", authorizedUser);
+
+          return authorizedUser;
+        } else {
+          return null;
+        };
+      };
+      throw AuthenticationError;
+    },
   },
 };
 

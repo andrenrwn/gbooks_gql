@@ -30,17 +30,17 @@
 //   });
 // };
 
-// save book data for a logged in user
-export const saveBook = (bookData, token) => {
-  return fetch('/api/users', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(bookData),
-  });
-};
+// // save book data for a logged in user. Deprecated
+// export const saveBook = (bookData, token) => {
+//   return fetch('/api/users', {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify(bookData),
+//   });
+// };
 
 // remove saved book data for a logged in user
 export const deleteBook = (bookId, token) => {
