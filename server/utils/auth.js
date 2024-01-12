@@ -20,17 +20,16 @@ module.exports = {
   // - the authorization Bearer header  ( HTTP auth is defined in https://datatracker.ietf.org/doc/html/rfc7235 )
   authMiddleware: function ({ req }) {
     // allows token to be sent via req.body, req.query or HTTP authorization: header
-    let token;
-    if (req.hasOwnProperty('body') && req.body.hasOwnProperty('token')) {
-      token = req.body.token;
-    } else if (req.hasOwnProperty('query') && req.query.hasOwnProperty('token')) {
-      token = req.query.token;
-    } else if (req.hasOwnProperty('headers') && req.headers.hasOwnProperty('authorization')) {
-      // Take the left value after ["Bearer", "<tokenvalue>"]
-      token = token.split(' ').pop().trim();
-    };
 
-    console.log("authMiddleware token:", token);
+    let token;
+    if (req.body && req.body.token) {
+      token = req.body.token;
+    } else if (req.query && req.query.token) {
+      token = req.query.token;
+    } else if (req.headers && req.headers.authorization) {
+      // Take the left value after ["Bearer", "<tokenvalue>"]
+      token = req.headers.authorization.split(' ').pop().trim();
+    };
 
     if (!token) {
       return req; // no token found in request, so just return the original req as context object for the next one after this middleware

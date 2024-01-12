@@ -20,7 +20,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
-      throw AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     },
   },
 
@@ -48,6 +48,28 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addBook: async (parent, addedBook, context) => {
+      console.log("resolver addBook mutation:", addedBook, context.user);
+      if (context.user) {
+
+        let authorizedUser = await User.findById(context.user._id);
+        const foundIndex = authorizedUser.savedBooks.findIndex((elem) => {
+          return elem.bookId === addedBook.bookId;
+        });
+
+        // If it is unique, add it into the user's saved books array and save it via Mongoose
+        if (foundIndex === -1) {
+          authorizedUser.savedBooks.push(addedBook);
+          const pushedElem = await authorizedUser.save();
+          const savedElem = pushedElem.savedBooks[pushedElem.savedBooks.length - 1];
+          console.log("============= ADDED NEW BOOK =============", savedElem);
+          return savedElem;
+        } else {
+          return null;
+        };
+      };
+      throw AuthenticationError;
     },
   },
 };

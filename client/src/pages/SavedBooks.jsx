@@ -26,9 +26,10 @@ const SavedBooks = () => {
     userData = data.user;
   }
 
-  useEffect(() => {
-    console.log("savedbooks useeffect");
-  }, [userData]);
+  // Don't need to use useEffect for Apollo graphQL queries because it seems to already be asynchronous
+  // useEffect(() => {
+  //   console.log("savedbooks useeffect");
+  // }, [userData]);
 
   // const userDataLength = Object.keys(userData).length;
   //-----------------------------------

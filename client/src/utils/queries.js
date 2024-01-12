@@ -95,3 +95,17 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+// Add book mutation
+export const ADD_BOOK = gql`
+  mutation addBook($bookId: String!, $title: String!, $authors: [String!], $description: String!, $image: String!, $link: String!) {
+    addBook(bookId: $bookId, title: $title, authors: $authors, description: $description, image: $image, link: $link) {
+      bookId
+      title
+      authors
+      description
+      image
+      link
+    }
+  }
+`;
