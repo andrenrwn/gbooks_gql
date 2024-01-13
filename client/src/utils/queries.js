@@ -1,11 +1,13 @@
 import { gql } from '@apollo/client';
 
+// QUERY_USER returns a user, if logged in
 export const QUERY_USER = gql`
   query user($userId: ID!) {
     user(id: $userId) {
       _id
       username
       email
+      bookCount
       savedBooks {
         _id
         bookId
@@ -19,25 +21,26 @@ export const QUERY_USER = gql`
   }
 `;
 
-// Deprecated
-// export const QUERY_ME = gql`
-//   query me {
-//     me {
-//       _id
-//       username
-//       email
-//       savedBooks {
-//         _id
-//         bookId
-//         title
-//         authors
-//         description
-//         image
-//         link
-//       }
-//     }
-//   }
-// `;
+// GET_ME returns a user, if logged in
+export const GET_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      bookCount
+      savedBooks {
+        _id
+        bookId
+        title
+        authors
+        description
+        image
+        link
+      }
+    }
+  }
+`;
 
 // Mutations
 

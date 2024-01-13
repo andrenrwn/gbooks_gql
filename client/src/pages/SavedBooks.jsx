@@ -37,7 +37,7 @@ const SavedBooks = () => {
   // Add a useMutation hook for book deletions
   const [delBook, { error }] = useMutation(DEL_BOOK);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []); // Deprecated
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {

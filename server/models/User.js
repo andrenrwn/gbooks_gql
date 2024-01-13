@@ -26,7 +26,17 @@ const userSchema = new Schema(
   },
   // set this to use virtual below
   {
+    virtuals: {
+      bookCount: {
+        get() {
+          return this.savedBooks.length();
+          },
+      }
+    },
     toJSON: {
+      virtuals: true,
+    },
+    toObject: {
       virtuals: true,
     },
   }
