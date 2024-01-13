@@ -29,7 +29,7 @@ const userSchema = new Schema(
     virtuals: {
       bookCount: {
         get() {
-          return this.savedBooks.length();
+          return this.savedBooks.length;
           },
       }
     },

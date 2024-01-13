@@ -72,6 +72,7 @@ const resolvers = {
         const foundIndex = authorizedUser.savedBooks.findIndex((elem) => {
           return elem.bookId === addedBook.bookId;
         });
+        console.log("============= ADDING NEW BOOK TO USER =============", authorizedUser);
 
         // If it is unique, add it into the user's saved books array and save it via Mongoose
         if (foundIndex === -1) {

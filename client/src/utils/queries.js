@@ -77,12 +77,18 @@ export const ADD_BOOK = gql`
   mutation addBook($bookId: String!, $title: String!, $authors: [String!], $description: String!, $image: String!, $link: String!) {
     addBook(bookId: $bookId, title: $title, authors: $authors, description: $description, image: $image, link: $link) {
       _id
-      bookId
-      title
-      authors
-      description
-      image
-      link
+      username
+      email
+      bookCount
+      savedBooks {
+        _id
+        bookId
+        title
+        authors
+        description
+        image
+        link
+      }
     }
   }
 `;
@@ -94,6 +100,7 @@ export const DEL_BOOK = gql`
       _id
       username
       email
+      bookCount
       savedBooks {
         _id
         bookId

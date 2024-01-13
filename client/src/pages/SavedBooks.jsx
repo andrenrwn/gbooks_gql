@@ -101,8 +101,8 @@ const SavedBooks = () => {
       </div>
       <Container>
         <h2 className="pt-5">
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? "book" : "books"}:`
+          {userData.bookCount
+            ? `Viewing ${userData.bookCount} saved ${userData.bookCount === 1 ? "book" : "books"}:`
             : "You have no saved books!"}
         </h2>
         <Row>
