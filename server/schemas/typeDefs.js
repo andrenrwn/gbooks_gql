@@ -9,12 +9,12 @@ const typeDefs = `
 
   type Book {
     _id: ID
+    bookId: String
+    title: String
     authors: [String]
     description: String
-    bookId: String
     image: String
     link: String
-    title: String
   }
 
   type Query {
