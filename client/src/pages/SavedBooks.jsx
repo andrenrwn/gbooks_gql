@@ -94,7 +94,7 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div className="text-light bg-dark p-5" fluid>
+      <div className="text-light bg-dark p-5" fluid="true">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
@@ -115,10 +115,14 @@ const SavedBooks = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    <Card.Link><a href={book.link} alt={book.link} target="_blank">Link</a></Card.Link><br></br>
-                    <Button className="btn-block btn-danger" onClick={() => handleDeleteBook(book.bookId)}>
-                      Delete this Book!
-                    </Button>
+                    <div className="d-flex flex-column">
+                      {book.link && (
+                        <Button href={book.link} className="btn-sm align-self-start mb-2" alt={book.link} target="_blank" role="button">Link</Button>
+                      )}
+                      <Button className="btn-block btn-danger align-self-start" onClick={() => handleDeleteBook(book.bookId)}>
+                        Delete this Book!
+                      </Button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>

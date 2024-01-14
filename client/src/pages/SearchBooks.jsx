@@ -153,18 +153,20 @@ const SearchBooks = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    <Card.Link><a href={book.link} alt={book.link} target="_blank">Link</a></Card.Link><br></br>
-                    {Auth.loggedIn() && (
-                      <Button
-                        disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
-                        className="btn-block btn-info"
-                        onClick={() => handleSaveBook(book.bookId)}
-                      >
-                        {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                          ? "This book has already been saved!"
-                          : "Save this Book!"}
-                      </Button>
-                    )}
+                    <div className="d-flex flex-column">
+                      <Button className="btn btn-primary btn-sm align-self-start mb-2" href={book.link} alt={book.link} target="_blank" role="button">Link</Button>
+                      {Auth.loggedIn() && (
+                        <Button
+                          disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
+                          className="btn-block btn-info align-self-start"
+                          onClick={() => handleSaveBook(book.bookId)}
+                        >
+                          {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
+                            ? "This book has already been saved!"
+                            : "Save this Book!"}
+                        </Button>
+                      )}
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
