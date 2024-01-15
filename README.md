@@ -10,7 +10,7 @@ This application is a use case example of integrating GraphQL / migrating an exi
 
 ## Deployed application
 
-[https://github.com/andrenrwn/gbooks_gql](https://github.com/andrenrwn/gbooks_gql)
+[https://render-gbooks-gql.onrender.com/](https://render-gbooks-gql.onrender.com/)
 
 ## Install and Run
 
