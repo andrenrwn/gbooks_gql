@@ -40,9 +40,11 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       console.log("authMiddleware data:", data);
       req.user = data; // populate decoded jwt token data into req.user object for the next express call
-    } catch {
-      console.log('Invalid token failed JWT verify');
-      // return res.status(401).json({ message: 'Invalid token failed JWT verify' });
+    } catch (err) {
+
+      if (!req.baseUrl === '/graphql') {
+        console.log('Invalid token failed JWT verify:', err);
+      };
     }
 
     // send data to next function after this middleware as third parameter (ie. 'context')

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
-// import { getMe, deleteBook } from "../utils/API";
+// import { getMe, deleteBook } from "../utils/API"; // deprecated
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
@@ -11,18 +11,17 @@ import { useQuery } from "@apollo/client";
 import { QUERY_USER, DEL_BOOK } from "../utils/queries";
 
 const SavedBooks = () => {
-  // const [userData, setUserData] = useState({});
 
   let userData;
 
   const userId = Auth.getUser().data._id;
-  console.log("Savedbooks token user id:", userId);
+  // console.log("Savedbooks token user id:", userId); // debug log
 
   const { loading, data } = useQuery(QUERY_USER, {
     variables: { userId },
     fetchPolicy: "no-cache",
   });
-  console.log("getUserData's loading:", loading, " data: ", data);
+  // console.log("getUserData's loading:", loading, " data: ", data); // debug log
 
   // populate userData
   if (data && data.user) {
@@ -63,7 +62,7 @@ const SavedBooks = () => {
       });
 
       if (data && data.delBook) {
-        console.log("========================== DEL BOOK RESULT DATA ======================", data.delBook);
+        // console.log("========================== DEL BOOK RESULT DATA ======================", data.delBook); // debug log
         // upon success, remove book's id from localStorage
         userData = data.delBook;
         // setUserData(data.delBook);

@@ -1,4 +1,4 @@
-// route to get logged in user's info (needs the token)
+// route to get logged in user's info (needs the token) (Decommissioned, replaced by GraphQL method)
 // export const getMe = (token) => {
 //   return fetch('/api/users/me', {
 //     headers: {
@@ -42,8 +42,7 @@
 //   });
 // };
 
-// Deprecated
-// // remove saved book data for a logged in user
+// // remove saved book data for a logged in user. Deprecated
 // export const deleteBook = (bookId, token) => {
 //   return fetch(`/api/users/books/${bookId}`, {
 //     method: 'DELETE',

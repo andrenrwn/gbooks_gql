@@ -21,7 +21,7 @@ export const QUERY_USER = gql`
   }
 `;
 
-// GET_ME returns a user, if logged in
+// GET_ME returns a user, if logged in.  Use QUERY_USER instead.
 export const GET_ME = gql`
   query me {
     me {

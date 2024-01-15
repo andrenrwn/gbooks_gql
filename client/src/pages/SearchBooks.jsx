@@ -67,7 +67,7 @@ const SearchBooks = () => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
-    console.log("Book to save:", bookToSave);
+    // console.log("Book to save:", bookToSave); // debug log
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -78,7 +78,7 @@ const SearchBooks = () => {
     }
 
     try {
-      // Old API call to save book. Deprecated.
+      // //Old API call to save book. Deprecated.
       // const response = await saveBook(bookToSave, token);
 
       // if (!response.ok) {
